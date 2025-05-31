@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">DummyJSON App</string>
+
+    <!-- Generic messages -->
+    <string name="error_network">Couldn\'t reach server. Check your connection</string>
+    <string name="error_server">Server error occurred</string>
+    <string name="error_database">Failed to access local data</string>
+    <string name="error_unknown">An unexpected error occurred</string>
+
+    <!-- Splash Screen -->
+    <string name="retry">Retry</string>
+    <string name="using_offline_Data">Using offline data</string>
+
+    <!-- Product List Screen -->
+    <string name="search_placeholder">Type product name to search…</string>
+
+    <!-- Product Details Screen -->
+    <string name="error_missing_product_id">Product ID missing</string>
+
+    <string name="product_details_title">Product Details</string>
+    <string name="back_button_description">Back</string>
+    <string name="price_label">Price</string>
+    <string name="discount_label">Discount</string>
+    <string name="stock_label">Stock</string>
+    <string name="rating_label">Rating</string>
+    <string name="description_label">Description</string>
+
+    <!-- Exit Alert Dialog -->
+    <string name="exit_app_dialog_title">Exit App</string>
+    <string name="exit_app_dialog_message">Are you sure you want to exit?</string>
+    <string name="exit_app_dialog_confirm">Yes</string>
+    <string name="exit_app_dialog_cancel">Cancel</string>
+
 </resources>
