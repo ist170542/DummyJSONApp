@@ -9,7 +9,7 @@ import com.example.dummyjsonapp.data.local.entities.ProductDetailsEntity
 @Dao
 interface ProductDetailsDao {
 
-    @Query("SELECT * FROM ProductDetailsEntity WHERE id = :id")
+    @Query("SELECT * FROM productDetails WHERE id = :id")
     suspend fun getProductDetails(id: Int): ProductDetailsEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
