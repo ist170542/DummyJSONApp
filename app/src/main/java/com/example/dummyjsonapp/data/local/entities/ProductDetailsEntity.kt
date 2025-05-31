@@ -3,7 +3,7 @@ package com.example.dummyjsonapp.data.local.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "productDetails")
 data class ProductDetailsEntity(
     @PrimaryKey
     val id: Int,
@@ -13,5 +13,6 @@ data class ProductDetailsEntity(
     val description: String,
     val rating: Float,
     val stock: Int,
-    val image: String
+    val image: String?,
+    val tags: String
 )

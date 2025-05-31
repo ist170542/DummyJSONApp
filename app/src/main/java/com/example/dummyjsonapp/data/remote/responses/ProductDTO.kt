@@ -23,11 +23,14 @@ data class ProductDTO(
     val images: List<String>,
 
     @SerializedName("price")
-    val price: Int,
+    val price: Float,
 
     @SerializedName("discountPercentage")
     val discountPercentage: Float,
 
     @SerializedName("stock")
     val stock: Int,
+
+    @SerializedName("tags")
+    val tags: List<String>
 )
