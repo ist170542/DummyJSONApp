@@ -10,10 +10,13 @@ import com.example.dummyjsonapp.data.local.source.LocalDataSourceImpl
 import com.example.dummyjsonapp.util.AppConstants
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
     @Singleton
