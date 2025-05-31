@@ -82,5 +82,10 @@ dependencies {
     androidTestImplementation(libs.androidx.room.testing)
     // Glide
     implementation(libs.glide)
-
+    // DataStore
+    implementation(libs.datastore.preferences)
+    // Paging
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
+    implementation(libs.androidx.room.paging)
 }
