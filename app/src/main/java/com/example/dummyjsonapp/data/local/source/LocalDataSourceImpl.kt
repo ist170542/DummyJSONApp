@@ -1,5 +1,6 @@
 package com.example.dummyjsonapp.data.local.source
 
+import androidx.paging.PagingSource
 import com.example.dummyjsonapp.data.local.database.ProductDetailsDao
 import com.example.dummyjsonapp.data.local.database.ProductsDao
 import com.example.dummyjsonapp.data.local.entities.ProductDetailsEntity
@@ -10,8 +11,12 @@ class LocalDataSourceImpl(
     private val productDetailsDao: ProductDetailsDao
 ) : LocalDataSource {
 
-    override suspend fun getProducts(): List<ProductEntity> {
-        return productsDao.getProducts()
+    override fun searchProducts(query: String): PagingSource<Int, ProductEntity> {
+        return productsDao.searchProducts(query)
+    }
+
+    override fun getAllProductsPaged(): PagingSource<Int, ProductEntity> {
+        return productsDao.getAllProductsPaged()
     }
 
     override suspend fun insertProducts(products: List<ProductEntity>) {
