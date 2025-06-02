@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">DummyJSON App</string>
+
+    <!-- Generic messages -->
+    <string name="error_network">Não foi possível ligar ao servidor. Verifique a sua ligação</string>
+    <string name="error_server">Ocorreu um erro no servidor</string>
+    <string name="error_database">Falha ao aceder aos dados locais</string>
+    <string name="error_unknown">Ocorreu um erro inesperado</string>
+
+    <!-- Splash Screen -->
+    <string name="retry">Tentar novamente</string>
+    <string name="using_offline_data">A utilizar dados offline</string>
+
+    <!-- Product List Screen -->
+    <string name="search_placeholder">Escreva o nome do produto para pesquisar…</string>
+
+    <!-- Product Details Screen -->
+    <string name="error_missing_product_id">ID do produto em falta</string>
+    <string name="product_details_title">Detalhes do Produto</string>
+    <string name="back_button_description">Voltar</string>
+    <string name="price_label">Preço</string>
+    <string name="discount_label">Desconto</string>
+    <string name="stock_label">Stock</string>
+    <string name="rating_label">Avaliação</string>
+    <string name="description_label">Descrição</string>
+
+    <!-- Exit Alert Dialog -->
+    <string name="exit_app_dialog_title">Sair da aplicação</string>
+    <string name="exit_app_dialog_message">Tem a certeza de que pretende sair?</string>
+    <string name="exit_app_dialog_confirm">Sim</string>
+    <string name="exit_app_dialog_cancel">Cancelar</string>
+
+    <!-- Classification dropdown values -->
+    <string name="classification_mau">Mau</string>
+    <string name="classification_satisfatorio">Satisfatório</string>
+    <string name="classification_bom">Bom</string>
+    <string name="classification_muito_bom">Muito Bom</string>
+    <string name="classification_excelente">Excelente</string>
+
+    <!-- Form field labels -->
+    <string name="form_title">Formulário</string>
+    <string name="form_name_label">Nome do utilizador</string>
+    <string name="form_email_label">Email</string>
+    <string name="form_number_label">Número de telefone</string>
+    <string name="form_promo_code_label">Código promocional</string>
+    <string name="form_delivery_date_label">Data de entrega</string>
+    <string name="form_select_date">Selecionar data</string>
+    <string name="form_classification_label">Classificação</string>
+
+    <!-- Validation message -->
+    <string name="form_invalid_label">Formulário inválido!</string>
+    <string name="form_valid_label">Formulário válido!</string>
+</resources>

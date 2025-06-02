@@ -9,14 +9,13 @@
 
     <!-- Splash Screen -->
     <string name="retry">Retry</string>
-    <string name="using_offline_Data">Using offline data</string>
+    <string name="using_offline_data">Using offline data</string>
 
     <!-- Product List Screen -->
     <string name="search_placeholder">Type product name to search…</string>
 
     <!-- Product Details Screen -->
     <string name="error_missing_product_id">Product ID missing</string>
-
     <string name="product_details_title">Product Details</string>
     <string name="back_button_description">Back</string>
     <string name="price_label">Price</string>
@@ -37,18 +36,18 @@
     <string name="classification_bom">Good</string>
     <string name="classification_muito_bom">Very Good</string>
     <string name="classification_excelente">Excellent</string>
+
     <!-- Form field labels -->
     <string name="form_title">Form</string>
-    <string name="form_name_label">Nome do utilizador</string>
+    <string name="form_name_label">User name</string>
     <string name="form_email_label">Email</string>
-    <string name="form_number_label">Número</string>
-    <string name="form_promo_code_label">Código promocional</string>
-    <string name="form_delivery_date_label">Data de entrega</string>
-    <string name="form_select_date">Selecionar data</string>
-    <string name="form_classification_label">Classificação</string>
+    <string name="form_number_label">Phone number</string>
+    <string name="form_promo_code_label">Promotional code</string>
+    <string name="form_delivery_date_label">Delivery date</string>
+    <string name="form_select_date">Select date</string>
+    <string name="form_classification_label">Classification</string>
 
     <!-- Validation message -->
     <string name="form_invalid_label">Invalid form!</string>
     <string name="form_valid_label">Valid form!</string>
-
 </resources>
