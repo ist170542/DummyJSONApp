@@ -1,53 +1,68 @@
 package com.example.dummyjsonapp.util.formValidation
 
 import com.example.dummyjsonapp.util.FormValidator
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Test
 import java.time.DayOfWeek
 import java.time.LocalDate
 
 class FormValidatorTest {
+
     @Test
     fun `valid email passes validation`() {
-        assertTrue(FormValidator.isEmailValid("test@example.com"))
+        val errorRes = FormValidator.validateEmail("test@example.com").errorMessageRes
+        assertNull(errorRes)
     }
 
     @Test
     fun `invalid email fails validation`() {
-        assertFalse(FormValidator.isEmailValid("invalid-email"))
+        val errorRes = FormValidator.validateEmail("invalid-email").errorMessageRes
+        assertNotNull(errorRes)
     }
 
     @Test
     fun `valid promo code passes validation`() {
-        assertTrue(FormValidator.isPromoCodeValid("TEST-"))
+        val errorRes = FormValidator.validatePromoCode("VALID-C").errorMessageRes
+        assertNull(errorRes)
     }
 
     @Test
-    fun `invalid promo code fails validation`() {
-        assertFalse(FormValidator.isPromoCodeValid("test123"))
+    fun `promo code with lowercase or invalid characters fails validation`() {
+        val errorRes = FormValidator.validatePromoCode("abc123").errorMessageRes
+        assertNotNull(errorRes)
+    }
+
+    @Test
+    fun `promo code with accents fails validation`() {
+        val errorRes = FormValidator.validatePromoCode("ÁBC-DEF").errorMessageRes
+        assertNotNull(errorRes)
     }
 
     @Test
     fun `future date fails validation`() {
-        assertFalse(FormValidator.isDateValid(LocalDate.now().plusDays(1)))
-    }
-
-    @Test
-    fun `past non-Monday date passes validation`() {
-        val date = LocalDate.now().minusDays(1)
-        if (date.dayOfWeek != DayOfWeek.MONDAY) {
-            assertTrue(FormValidator.isDateValid(date))
-        }
+        val futureDate = LocalDate.now().plusDays(1)
+        val errorRes = FormValidator.validateDeliveryDate(futureDate, false).errorMessageRes
+        assertNotNull(errorRes)
     }
 
     @Test
     fun `monday date fails validation`() {
-        // Find next Monday in the past or today
-        var date = LocalDate.now()
-        while (date.dayOfWeek != DayOfWeek.MONDAY) {
-            date = date.minusDays(1)
+        var monday = LocalDate.now()
+        while (monday.dayOfWeek != DayOfWeek.MONDAY) {
+            monday = monday.plusDays(1)
         }
-        assertFalse(FormValidator.isDateValid(date))
+        val errorRes = FormValidator.validateDeliveryDate(monday, false).errorMessageRes
+        assertNotNull(errorRes)
+    }
+
+    @Test
+    fun `valid past date that is not monday passes validation`() {
+        var validDate = LocalDate.now().minusDays(1)
+        while (validDate.dayOfWeek == DayOfWeek.MONDAY) {
+            validDate = validDate.minusDays(1)
+        }
+        val errorRes = FormValidator.validateDeliveryDate(validDate, false).errorMessageRes
+        assertNull(errorRes)
     }
 }
