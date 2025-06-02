@@ -11,15 +11,25 @@ import kotlinx.coroutines.flow.update
 import java.time.LocalDate
 
 data class ValidatedFormUIState(
-    val name: String = "",
-    val email: String = "",
-    val number: String = "",
-    val promoCode: String = "",
-    val deliveryDate: LocalDate? = null,
+    val name: ValidatedField<String> = ValidatedField(""),
+    val email: ValidatedField<String> = ValidatedField(""),
+    val number: ValidatedField<String> = ValidatedField(""),
+    val promoCode: ValidatedField<String> = ValidatedField(""),
+    val deliveryDate: ValidatedField<LocalDate?> = ValidatedField(null),
     val classificationOptions: List<Classification> = emptyList(),
     val classification: Classification? = null,
     val isValid: Boolean = false
 )
+
+// Represents a field with validation state
+data class ValidatedField<T>(
+    val value: T,
+    val isEdited: Boolean = false,
+    @StringRes val errorMessageRes: Int? = null
+)
+
+fun ValidatedField<*>.shouldShowError(): Boolean =
+    isEdited && errorMessageRes != null
 
 /**
  * ViewModel responsible for managing the state and validation logic
@@ -40,15 +50,43 @@ class FormViewModel : ViewModel() {
 
     val formState: StateFlow<ValidatedFormUIState> = _formState.asStateFlow()
 
-    fun updateName(name: String) = update { it.copy(name = name) }
-    fun updateEmail(email: String) = update { it.copy(email = email) }
-    fun updateNumber(number: String) {
-        if (number.all(Char::isDigit)) update { it.copy(number = number) }
+    fun updateName(name: String) = update {
+        it.copy(
+            name = FormValidator.validateRequiredField(name)
+        )
     }
 
-    fun updatePromoCode(code: String) = update { it.copy(promoCode = code.uppercase()) }
-    fun updateDate(date: LocalDate) = update { it.copy(deliveryDate = date) }
-    fun updateClassification(classification: Classification) = update { it.copy(classification = classification) }
+    fun updateEmail(email: String) = update {
+        it.copy(
+            email = FormValidator.validateEmail(email)
+        )
+    }
+
+    fun updateNumber(number: String) {
+        if (number.all(Char::isDigit)) {
+            update {
+                it.copy(
+                    number = FormValidator.validateRequiredField(number)
+                )
+            }
+        }
+    }
+
+
+    fun updatePromoCode(code: String) = update {
+        val normalized = code.uppercase()
+        it.copy(
+            promoCode = FormValidator.validatePromoCode(normalized)
+        )
+    }
+
+    fun updateDate(date: LocalDate) = update {
+        it.copy(deliveryDate = FormValidator.validateDeliveryDate(date, isEdited = true))
+    }
+
+    fun updateClassification(classification: Classification) = update {
+        it.copy(classification = classification)
+    }
 
     private fun update(transform: (ValidatedFormUIState) -> ValidatedFormUIState) {
         _formState.update { current ->
@@ -58,15 +96,12 @@ class FormViewModel : ViewModel() {
     }
 
     private fun validateForm(state: ValidatedFormUIState): Boolean {
-        return state.name.isNotBlank() &&
-                state.email.isNotBlank() &&
-                state.number.isNotBlank() &&
-                state.promoCode.isNotBlank() &&
-                state.deliveryDate != null &&
-                state.classification != null &&
-                FormValidator.isEmailValid(state.email) &&
-                FormValidator.isPromoCodeValid(state.promoCode) &&
-                FormValidator.isDateValid(state.deliveryDate)
+        return state.name.errorMessageRes == null &&
+                state.email.errorMessageRes == null &&
+                state.number.errorMessageRes == null &&
+                state.promoCode.errorMessageRes == null &&
+                state.deliveryDate.errorMessageRes == null &&
+                state.classification != null
     }
 
 }
@@ -78,3 +113,4 @@ enum class Classification(@StringRes val labelRes: Int) {
     MUITO_BOM(R.string.classification_muito_bom),
     EXCELENTE(R.string.classification_excelente)
 }
+

@@ -47,6 +47,14 @@
     <string name="form_select_date">Select date</string>
     <string name="form_classification_label">Classification</string>
 
+    <!-- General validation errors -->
+    <string name="error_required">This field is required</string>
+    <string name="error_email_invalid">Invalid email format</string>
+    <string name="error_promo_format">Promo code must be 3–7 uppercase letters or dashes</string>
+    <string name="error_promo_accents">Promo code must not contain accents</string>
+    <string name="error_monday_invalid">Delivery not available on Mondays</string>
+    <string name="error_future_date">Date cannot be in the future</string>
+
     <!-- Validation message -->
     <string name="form_invalid_label">Invalid form!</string>
     <string name="form_valid_label">Valid form!</string>

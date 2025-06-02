@@ -47,6 +47,14 @@
     <string name="form_select_date">Selecionar data</string>
     <string name="form_classification_label">Classificação</string>
 
+    <!-- General validation errors -->
+    <string name="error_required">Este campo é obrigatório</string>
+    <string name="error_email_invalid">Formato de email inválido</string>
+    <string name="error_promo_format">O código promocional deve ter 3–7 letras maiúsculas ou traços</string>
+    <string name="error_promo_accents">O código promocional não pode conter acentos</string>
+    <string name="error_monday_invalid">Entregas não disponíveis à segunda-feira</string>
+    <string name="error_future_date">A data não pode ser no futuro</string>
+
     <!-- Validation message -->
     <string name="form_invalid_label">Formulário inválido!</string>
     <string name="form_valid_label">Formulário válido!</string>
