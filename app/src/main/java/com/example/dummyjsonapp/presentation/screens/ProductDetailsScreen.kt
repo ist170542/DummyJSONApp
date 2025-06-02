@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -254,3 +255,23 @@ fun InfoRow(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun ProductDetailsContentPreview() {
+    ProductDetailsContent(
+        product = ProductDetails(
+            id = 1,
+            title = "Test Product",
+            description = "This is a test description of a product with detailed info and specs.",
+            price = 100.0f,
+            discountPercentage = 15.0f,
+            rating = 4.5f,
+            stock = 50,
+            image = "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
+            tags = listOf("Tech", "Gadget", "Portable")
+        ),
+        onBackClick = {}
+    )
+}
+
