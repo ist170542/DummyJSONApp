@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
@@ -35,13 +34,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,97 +103,119 @@ fun ProductDetailsContent(
     onBackClick: () -> Unit
 ) {
 
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.product_details_title)) },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back_button_description))
-                        }
+    val scrollState = rememberLazyListState()
+    // Full height of the image when fully expanded
+    val imageHeight = 300.dp
+    // Convert the image height from dp to pixels for calculations
+    val collapseRange = with(LocalDensity.current) { imageHeight.roundToPx().toFloat() }
+
+    // Calculate how much the image should shrink based on how far we've scrolled
+    val collapseFraction by remember {
+        derivedStateOf {
+            // Never allow it to collapse more than the full image height
+            val offset = minOf(scrollState.firstVisibleItemScrollOffset.toFloat(), collapseRange)
+            // Result: 0 = fully expanded, 1 = fully collapsed
+            offset / collapseRange
+        }
+    }
+
+    Scaffold(
+        // Fixed top app bar that stays visible while scrolling
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.product_details_title)) },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back_button_description))
                     }
-                )
-            }
-        ) { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(16.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
+                }
+            )
+        }
+    ) { padding ->
+        LazyColumn(
+            state = scrollState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            item {
                 GlideImage(
                     model = product.image,
                     contentDescription = product.title,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     loading = placeholder(R.drawable.ic_placeholder_product),
                     failure = placeholder(R.drawable.ic_placeholder_product),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 180.dp)
-                        .padding(24.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        // Ensure minimum height, as per requirement
+                        .heightIn(min = 100.dp, max = imageHeight)
+                        // Shrinks height
+                        .height(imageHeight * (1f - collapseFraction.coerceIn(0f, 1f)))
+                        // Fades out smoothly
+                        .graphicsLayer {
+                            alpha = 1f - collapseFraction.coerceIn(0f, 1f)
+                        }
                 )
-
-                Text(
-                    product.title,
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-
-                FlowRow(
-                    modifier = Modifier.padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    product.tags.forEach {
-                        SuggestionChip(onClick = {}, label = { Text(it) })
-                    }
-                }
-
-                InfoRow(
-                    icon = Icons.Default.ShoppingCart,
-                    title = stringResource(R.string.price_label),
-                    value = "$${product.price}"
-                )
-
-                InfoRow(
-                    icon = Icons.Default.ThumbUp,
-                    title = stringResource(R.string.discount_label),
-                    value = "${product.discountPercentage}%"
-                )
-
-                InfoRow(
-                    icon = Icons.Default.Info,
-                    title = stringResource(R.string.stock_label),
-                    value = product.stock.toString()
-                )
-
-                InfoRow(
-                    icon = Icons.Default.Star,
-                    title = stringResource(R.string.rating_label),
-                    value = product.rating.toString()
-                )
-
-                Spacer(Modifier.height(24.dp))
-
-                Text(
-                    stringResource(R.string.description_label),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-
-                Text(
-                    product.description,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(top = 8.dp),
-                    lineHeight = 24.sp
-                )
-
             }
+            item {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        product.title,
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
 
+                    FlowRow(
+                        modifier = Modifier.padding(top = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        product.tags.forEach {
+                            SuggestionChip(onClick = {}, label = { Text(it) })
+                        }
+                    }
+
+                    InfoRow(
+                        icon = Icons.Default.ShoppingCart,
+                        title = stringResource(R.string.price_label),
+                        value = "$${product.price}"
+                    )
+
+                    InfoRow(
+                        icon = Icons.Default.ThumbUp,
+                        title = stringResource(R.string.discount_label),
+                        value = "${product.discountPercentage}%"
+                    )
+
+                    InfoRow(
+                        icon = Icons.Default.Info,
+                        title = stringResource(R.string.stock_label),
+                        value = product.stock.toString()
+                    )
+
+                    InfoRow(
+                        icon = Icons.Default.Star,
+                        title = stringResource(R.string.rating_label),
+                        value = product.rating.toString()
+                    )
+
+                    Spacer(Modifier.height(24.dp))
+
+                    Text(
+                        stringResource(R.string.description_label),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Text(
+                        product.description,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(top = 8.dp),
+                        lineHeight = 24.sp
+                    )
+                }
+            }
         }
-
-
+    }
 
 }
 
