@@ -43,10 +43,10 @@ fun AppNavHost(
             composable(BottomNavScreen.LIST.name) {
                 MainScreen(navController = navController)
             }
-//            // Form screen
-//            composable(BottomNavScreen.FORM.name) {
-//                MainScreen(navController = navController)
-//            }
+            // Form screen
+            composable(BottomNavScreen.FORM.name) {
+                MainScreen(navController = navController)
+            }
         }
 
         // Details screen (outside the bottom navigation)

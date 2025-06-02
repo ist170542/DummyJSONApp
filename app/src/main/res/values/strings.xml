@@ -31,4 +31,24 @@
     <string name="exit_app_dialog_confirm">Yes</string>
     <string name="exit_app_dialog_cancel">Cancel</string>
 
+    <!-- Classification dropdown values -->
+    <string name="classification_mau">Poor</string>
+    <string name="classification_satisfatorio">Satisfactory</string>
+    <string name="classification_bom">Good</string>
+    <string name="classification_muito_bom">Very Good</string>
+    <string name="classification_excelente">Excellent</string>
+    <!-- Form field labels -->
+    <string name="form_title">Form</string>
+    <string name="form_name_label">Nome do utilizador</string>
+    <string name="form_email_label">Email</string>
+    <string name="form_number_label">Número</string>
+    <string name="form_promo_code_label">Código promocional</string>
+    <string name="form_delivery_date_label">Data de entrega</string>
+    <string name="form_select_date">Selecionar data</string>
+    <string name="form_classification_label">Classificação</string>
+
+    <!-- Validation message -->
+    <string name="form_invalid_label">Invalid form!</string>
+    <string name="form_valid_label">Valid form!</string>
+
 </resources>

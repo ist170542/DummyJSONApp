@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +39,7 @@ import com.example.dummyjsonapp.presentation.navigation.BottomNavScreen
 import com.example.dummyjsonapp.presentation.navigation.BottomNavigationBar
 import com.example.dummyjsonapp.presentation.navigation.NavigationItem
 import com.example.dummyjsonapp.presentation.screens.subscreens.ProductListSubScreen
+import com.example.dummyjsonapp.presentation.screens.subscreens.ValidatedFormSubScreen
 import com.example.dummyjsonapp.presentation.viewmodels.ProductListViewModel
 
 @Composable
@@ -65,10 +69,13 @@ fun MainScreen(
     }
 
     Scaffold(
+        //workaround, too much space added above the keyboard
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = { BottomNavigationBar(navController = innerNavController) }
     ) { innerPadding ->
         MainScreenContent(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding)
+                .consumeWindowInsets(innerPadding), // consume that padding to prevent double spacing,
             navController = navController,
             innerNavController = innerNavController
         )
@@ -102,11 +109,11 @@ fun MainScreenContent(
                 }
             )
         }
-//        composable(BottomNavScreen.FORM.name) {
-//            FormSubScreen(
-//                viewModel = hiltViewModel()
-//            )
-//        }
+        composable(BottomNavScreen.FORM.name) {
+            ValidatedFormSubScreen(
+                viewModel = hiltViewModel()
+            )
+        }
     }
 }
 
