@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,6 +33,7 @@ import com.example.dummyjsonapp.presentation.misc.FullScreenLoadingOverlay
 import com.example.dummyjsonapp.presentation.viewmodels.ProductListUiState
 import com.example.dummyjsonapp.presentation.viewmodels.ProductListViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun ProductListSubScreen(
@@ -111,4 +113,20 @@ fun ProductListSubScreenContent(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductListSubScreenContentPreview() {
+    val dummyProducts = listOf(
+        Product(1, "Laptop", "Description", 1000.0f, "https://via.placeholder.com/150"),
+        Product(2, "Smartphone", "Description", 500.0f, "https://via.placeholder.com/150")
+    )
+    val dummyPagingData = PagingData.from(dummyProducts)
+
+    ProductListSubScreenContent(
+        uiState = ProductListUiState(searchText = "Laptop", isLoading = false),
+        pagingData = flowOf(dummyPagingData),
+        onClickedCard = {}
+    )
 }
