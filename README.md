@@ -101,27 +101,24 @@ If more time were available, further testing would focus on broader coverage and
 
 ## 🗼️ Screenshots
 
-| Product List | Product Detail | Search | Form Screen |
-|--------------|----------------|--------|-------------|
 
+<img src="https://github.com/user-attachments/assets/4a69f52c-43de-4158-baec-d585c669d282" width=20% height=20%>
 
-<img src="https://github.com/user-attachments/assets/4a69f52c-43de-4158-baec-d585c669d282 width=20% height=20%>
+<img src="https://github.com/user-attachments/assets/88910a86-5d79-4355-b438-dd2527cf5f85" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/88910a86-5d79-4355-b438-dd2527cf5f85)
+<img src="https://github.com/user-attachments/assets/3fece114-bc70-46ba-811d-adb78a54df11" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/3fece114-bc70-46ba-811d-adb78a54df11)
+<img src="https://github.com/user-attachments/assets/eebdcc4f-250a-491e-b953-9b9fd4865bd3" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/eebdcc4f-250a-491e-b953-9b9fd4865bd3)
+<img src="https://github.com/user-attachments/assets/21a21e1e-49a9-410c-ba69-85e0aee68f84" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/21a21e1e-49a9-410c-ba69-85e0aee68f84)
+<img src="https://github.com/user-attachments/assets/ed1c8a79-2efe-4e30-b811-49cb7482d64a" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/ed1c8a79-2efe-4e30-b811-49cb7482d64a)
+<img src="https://github.com/user-attachments/assets/569604a9-0ba1-4256-93d6-14d348162d3e" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/569604a9-0ba1-4256-93d6-14d348162d3e)
+<img src="https://github.com/user-attachments/assets/9c314f30-d668-43b0-a867-1d765b734c16" width=20% height=20%>
 
-![image](https://github.com/user-attachments/assets/9c314f30-d668-43b0-a867-1d765b734c16)
-
-![image](https://github.com/user-attachments/assets/071bd10c-6ebe-432f-a88d-63fa61ac2b37)
+<img src="https://github.com/user-attachments/assets/071bd10c-6ebe-432f-a88d-63fa61ac2b37" width=20% height=20%>
 
 
 
