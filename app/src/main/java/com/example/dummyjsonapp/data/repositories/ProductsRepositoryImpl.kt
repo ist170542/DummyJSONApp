@@ -15,6 +15,7 @@ import com.example.dummyjsonapp.domain.model.ProductDetails
 import com.example.dummyjsonapp.domain.repositories.ProductsRepository
 import com.example.dummyjsonapp.util.ErrorType
 import com.example.dummyjsonapp.util.Resource
+import com.example.dummyjsonapp.util.TextNormalizer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,8 +23,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
-import java.text.Normalizer
-import java.util.Locale
 import javax.inject.Inject
 
 class ProductsRepositoryImpl @Inject constructor(
@@ -85,7 +84,7 @@ class ProductsRepositoryImpl @Inject constructor(
 
         try {
             // Normalize query to remove diacritics and convert to lowercase
-            val trimmedQuery = normalizeText(query)
+            val trimmedQuery = TextNormalizer.normalizeText(query)
                 .split("\\s+".toRegex())
                 .joinToString(" ")
                 { "$it*" } // add * to allow partial searching E.g. "Essenc" matches "Essence"
@@ -115,16 +114,6 @@ class ProductsRepositoryImpl @Inject constructor(
             emit(Resource.Error(ErrorType.UnknownError))
         }
 
-    }
-
-    /**
-     * Normalize search string to remove diacritics and convert to lowercase
-     * e.g. "Máscara" -> "mascara"
-     */
-    private fun normalizeText(input: String): String {
-        return Normalizer
-            .normalize(input.lowercase(Locale.getDefault()), Normalizer.Form.NFD)
-            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
     }
 
     /**
